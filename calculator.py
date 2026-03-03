@@ -10,6 +10,31 @@ Menu-driven scientific calculator supporting:
 """
 
 import math
+
+class ScientificCalculator:
+    @staticmethod
+    def square_root(num):
+        if num < 0:
+            raise ValueError("Cannot compute square root of a negative number.")
+        return math.sqrt(num)
+
+    @staticmethod
+    def factorial(num):
+        if num < 0:
+            raise ValueError("Factorial is not defined for negative numbers.")
+        return math.factorial(num)
+
+    @staticmethod
+    def natural_log(num):
+        if num <= 0:
+            raise ValueError("Natural logarithm is only defined for positive numbers.")
+        return math.log(num)
+
+    @staticmethod
+    def power(base, exponent):
+        return math.pow(base, exponent)
+    
+
 def display_menu():
     print("\nScientific Calculator")
     print("1. Square Root")
@@ -19,42 +44,42 @@ def display_menu():
     print("5. Exit")
 
 def main():
+    calculator = ScientificCalculator()
     while True:
         display_menu()
         choice = input("Select an operation (1-5): ")
-        
-        if choice == '1':
-            num = float(input("Enter a number: "))
-            if num < 0:
-                print("Error: Cannot compute square root of a negative number.")
+
+        try:
+            if choice == '1':
+                num = float(input("Enter a number: "))
+                result = calculator.square_root(num)
+                print(f"Square Root of {num} is {result}")
+
+            elif choice == '2':
+                num = int(input("Enter a non-negative integer: "))
+                result = calculator.factorial(num)
+                print(f"Factorial of {num} is {result}")
+
+            elif choice == '3':
+                num = float(input("Enter a positive number: "))
+                result = calculator.natural_log(num)
+                print(f"Natural Logarithm of {num} is {result}")
+
+            elif choice == '4':
+                base = float(input("Enter the base: "))
+                exponent = float(input("Enter the exponent: "))
+                result = calculator.power(base, exponent)
+                print(f"{base} raised to the power of {exponent} is {result}")
+
+            elif choice == '5':
+                print("Exiting the calculator.")
+                break
+
             else:
-                print(f"Square Root of {num} is {math.sqrt(num)}")
-        
-        elif choice == '2':
-            num = int(input("Enter a non-negative integer: "))
-            if num < 0:
-                print("Error: Factorial is not defined for negative numbers.")
-            else:
-                print(f"Factorial of {num} is {math.factorial(num)}")
-        
-        elif choice == '3':
-            num = float(input("Enter a positive number: "))
-            if num <= 0:
-                print("Error: Natural logarithm is only defined for positive numbers.")
-            else:
-                print(f"Natural Logarithm of {num} is {math.log(num)}")
-        
-        elif choice == '4':
-            base = float(input("Enter the base: "))
-            exponent = float(input("Enter the exponent: "))
-            print(f"{base} raised to the power of {exponent} is {math.pow(base, exponent)}")
-        
-        elif choice == '5':
-            print("Exiting the calculator.")
-            break
-        
-        else:
-            print("Invalid choice. Please select a valid operation.")
+                print("Invalid choice. Please select a valid operation.")
+
+        except ValueError as e:
+            print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()
