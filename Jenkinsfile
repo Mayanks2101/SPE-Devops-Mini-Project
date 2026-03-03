@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "mayank2101/spe-miniproject-calculator:latest"
+        DOCKER_REPO = "mayank2101/spe-miniproject-calculator"
         GIT_REPO = "https://github.com/Mayanks2101/SPE-Devops-Mini-Project.git"
         GIT_BRANCH = "main"
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -29,7 +30,10 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
+                sh '''
+                    docker build -t $DOCKER_REPO:$IMAGE_TAG .
+                    docker tag $DOCKER_REPO:$IMAGE_TAG $DOCKER_REPO:latest
+                '''
             }
         }
 
@@ -42,7 +46,8 @@ pipeline {
                 )]) {
                     sh '''
                         echo $PASSWORD | docker login -u $USERNAME --password-stdin
-                        docker push $DOCKER_IMAGE
+                        docker push $DOCKER_REPO:$IMAGE_TAG
+                        docker push $DOCKER_REPO:latest
                     '''
                 }
             }
@@ -56,8 +61,11 @@ pipeline {
                 body: """
                 Build was successful!
 
-                Project: ${env.JOB_NAME}
-                Check details at: ${env.BUILD_URL}
+                Image pushed:
+                $DOCKER_REPO:$IMAGE_TAG
+
+                Check details at:
+                ${env.BUILD_URL}
                 """,
                 recipientProviders: [developers()]
             )
@@ -69,8 +77,9 @@ pipeline {
                 body: """
                 Build failed!
 
-                Project: ${env.JOB_NAME}
-                Check details at: ${env.BUILD_URL}
+                Project: ${env.JOB_NAME} #${env.BUILD_NUMBER}
+                Check logs:
+                ${env.BUILD_URL}
                 """,
                 recipientProviders: [developers()]
             )
