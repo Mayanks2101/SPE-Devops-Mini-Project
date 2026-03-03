@@ -3,13 +3,15 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "mayank2101/spe-miniproject-calculator:latest"
+        GIT_REPO = "https://github.com/Mayanks2101/SPE-Devops-Mini-Project.git"
+        GIT_BRANCH = "main"
     }
 
     stages {
 
-        stage('Clone') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/Mayanks2101/SPE-Devops-Mini-Project.git'
+                git branch: "${GIT_BRANCH}", url: "${GIT_REPO}"
             }
         }
 
