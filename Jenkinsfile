@@ -83,7 +83,7 @@ pipeline {
                 ${env.BUILD_URL}
                 """,
                 to: 'mayankjsatapara@gmail.com',
-                recipientProviders: [developers()]
+                // recipientProviders: [developers()]
             )
         }
 
@@ -98,7 +98,7 @@ pipeline {
                 ${env.BUILD_URL}
                 """,
                 to: 'mayankjsatapara@gmail.com',
-                recipientProviders: [developers()]
+                // recipientProviders: [developers()]
             )
         }
     }
