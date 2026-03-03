@@ -97,7 +97,7 @@ pipeline {
                 Check logs:
                 ${env.BUILD_URL}
                 """,
-                to: 'mayankjsatapara@gmail.com'
+                to: 'mayankjsatapara@gmail.com',
                 recipientProviders: [developers()]
             )
         }
