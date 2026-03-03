@@ -59,6 +59,14 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy with Ansible') {
+            steps {
+                sh """
+                    ansible-playbook -i inventory deploy.yml -e image_tag=$IMAGE_TAG
+                """
+            }
+        }
     }
 
     post {
@@ -74,6 +82,7 @@ pipeline {
                 Check details at:
                 ${env.BUILD_URL}
                 """,
+                to: 'mayankjsatapara@gmail.com',
                 recipientProviders: [developers()]
             )
         }
@@ -88,6 +97,7 @@ pipeline {
                 Check logs:
                 ${env.BUILD_URL}
                 """,
+                to: 'mayankjsatapara@gmail.com'
                 recipientProviders: [developers()]
             )
         }
