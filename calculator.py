@@ -10,29 +10,47 @@ Menu-driven scientific calculator supporting:
 """
 
 import math
+import logging
+
+logging.basicConfig(
+    filename="calculator.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 class ScientificCalculator:
     @staticmethod
     def square_root(num):
         if num < 0:
+            logging.error("Cannot compute square root of a negative number.")
             raise ValueError("Cannot compute square root of a negative number.")
-        return math.sqrt(num)
+        result = math.sqrt(num)
+        logging.info(f"Square Root of {num} is {result}")
+        return result
 
     @staticmethod
     def factorial(num):
         if num < 0:
+            logging.error("Factorial is not defined for negative numbers.")
             raise ValueError("Factorial is not defined for negative numbers.")
-        return math.factorial(num)
+        result = math.factorial(num)
+        logging.info(f"Factorial of {num} is {result}")
+        return result
 
     @staticmethod
     def natural_log(num):
         if num <= 0:
+            logging.error("Natural logarithm is only defined for positive numbers.")
             raise ValueError("Natural logarithm is only defined for positive numbers.")
-        return math.log(num)
+        result = math.log(num)
+        logging.info(f"Natural Logarithm of {num} is {result}")
+        return result
 
     @staticmethod
     def power(base, exponent):
-        return math.pow(base, exponent)
+        result = math.pow(base, exponent)
+        logging.info(f"{base} raised to the power of {exponent} is {result}")
+        return result
     
 
 def display_menu():
