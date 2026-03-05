@@ -21,15 +21,15 @@
         tag: "{{ image_tag }}"
         source: pull
 
-    - name: Stop existing container if running
-      docker_container:
-        name: spe-miniproject-calculator-container
-        state: absent
+    # - name: Stop existing container if running
+    #   docker_container:
+    #     name: spe-miniproject-calculator-container
+    #     state: absent
 
-    - name: Run new container
-      docker_container:
-        name: spe-miniproject-calculator-container
-        image: "{{ image_name }}:{{ image_tag }}"
-        state: started
-        tty: true
-        detach: true
+    # - name: Run new container
+    #   docker_container:
+    #     name: spe-miniproject-calculator-container
+    #     image: "{{ image_name }}:{{ image_tag }}"
+    #     state: started
+    #     tty: true
+    #     detach: true
