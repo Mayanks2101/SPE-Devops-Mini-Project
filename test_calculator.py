@@ -26,5 +26,6 @@ def test_power():
     assert ScientificCalculator.power(2, 3) == 8
     assert ScientificCalculator.power(5, 0) == 1
     assert ScientificCalculator.power(2, -1) == 0.5
+    assert ScientificCalculator.power(0.5, 2) == 0.25
 
     
